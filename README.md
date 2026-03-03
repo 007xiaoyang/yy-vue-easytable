@@ -88,13 +88,13 @@ If there is no feature you want,
 ## Install
 
 ```
-npm install vue-easytable
+npm install yy-vue-easytable
 ```
 
 or
 
 ```
-yarn add vue-easytable
+yarn add yy-vue-easytable
 ```
 
 ## Usage
@@ -103,8 +103,8 @@ Write the following in main.js:
 
 ```javascript
 import Vue from "vue";
-import "vue-easytable/libs/theme-default/index.css";
-import VueEasytable from "vue-easytable";
+import "yy-vue-easytable/libs/theme-default/index.css";
+import VueEasytable from "yy-vue-easytable";
 
 Vue.use(VueEasytable);
 
