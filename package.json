@@ -1,6 +1,6 @@
 {
-    "name": "vue-easytable",
-    "version": "2.27.1",
+    "name": "yy-vue-easytable",
+    "version": "2.27.2",
     "main": "libs/main.js",
     "description": "Vue table component",
     "keywords": [
@@ -27,11 +27,11 @@
         "footer",
         "span"
     ],
-    "author": "https://github.com/huangshuwei",
+    "author": "yangchengfei",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Happy-Coding-Clans/vue-easytable.git"
+        "url": "git+https://github.com/007xiaoyang/yy-vue-easytable.git"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
@@ -130,82 +130,13 @@
         ]
     },
     "bugs": {
-        "url": "https://github.com/Happy-Coding-Clans/vue-easytable/issues"
+        "url": "https://github.com/007xiaoyang/yy-vue-easytable/issues"
     },
-    "homepage": "https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/README.md",
+    "homepage": "https://github.com/007xiaoyang/yy-vue-easytable/blob/master/README.md",
     "docVersions": [
         {
-            "value": "/vue-easytable",
-            "label": "2.27.1"
-        },
-        {
-            "value": "/vue-easytable/2.26.0",
-            "label": "2.26.0"
-        },
-        {
-            "value": "/vue-easytable/2.25.0",
-            "label": "2.25.0"
-        },
-        {
-            "value": "/vue-easytable/2.24.0",
-            "label": "2.24.0"
-        },
-        {
-            "value": "/vue-easytable/2.23.0",
-            "label": "2.23.0"
-        },
-        {
-            "value": "/vue-easytable/2.22.0",
-            "label": "2.22.0"
-        },
-        {
-            "value": "/vue-easytable/2.21.11",
-            "label": "2.21.11"
-        },
-        {
-            "value": "/vue-easytable/2.20.2",
-            "label": "2.20.2"
-        },
-        {
-            "value": "/vue-easytable/2.19.1",
-            "label": "2.19.1"
-        },
-        {
-            "value": "/vue-easytable/2.18.3",
-            "label": "2.18.3"
-        },
-        {
-            "value": "/vue-easytable/2.17.3",
-            "label": "2.17.3"
-        },
-        {
-            "value": "/vue-easytable/2.16.3/",
-            "label": "2.16.3"
-        },
-        {
-            "value": "/vue-easytable/2.15.0/",
-            "label": "2.15.0"
-        },
-        {
-            "value": "/vue-easytable/2.14.4/",
-            "label": "2.14.4"
-        },
-        {
-            "value": "/vue-easytable/2.13.1/",
-            "label": "2.13.1"
-        },
-        {
-            "value": "/vue-easytable/2.12.3/",
-            "label": "2.12.3"
-        },
-        {
-            "value": "/vue-easytable/2.11.0/",
-            "label": "2.11.0"
-        },
-        {
-            "value": "/vue-easytable/1.7.2/app.html",
-            "label": "1.x",
-            "isVersion1": true
+            "value": "/yy-vue-easytable",
+            "label": "2.27.2"
         }
     ]
 }
