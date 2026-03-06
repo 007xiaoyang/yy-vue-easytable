@@ -298,6 +298,22 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
             },
+            {
+                param: "headerRowHeight",
+                desc: `表头行高`,
+
+                type: "<code>Number、String</code>",
+                optionalVal: "-",
+                default: "-",
+            },
+            {
+                param: "bodyRowHeight",
+                desc: `内容行高`,
+
+                type: "<code>Number、String</code>",
+                optionalVal: "-",
+                default: "-",
+            },
         ],
         columns: columnsType1,
     },
@@ -420,6 +436,13 @@ export const db = {
                 optionalVal: "-",
                 default: "-",
                 expandId: 55,
+            },
+            {
+                param: "disableCell",
+                desc: "是否禁用单元格鼠标事件",
+                type: "<code>Boolean</code>",
+                optionalVal: `-`,
+                default: `false`,
             },
         ],
         columns: columnsType1,

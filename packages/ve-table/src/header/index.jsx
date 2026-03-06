@@ -79,6 +79,10 @@ export default {
                 return null;
             },
         },
+        headerRowHeight: {
+            type: [Number, String],
+            default: "",
+        },
     },
     data() {
         return {
@@ -185,6 +189,7 @@ export default {
                             cellSelectionData,
                             cellSelectionRangeData: this.cellSelectionRangeData,
                             headerIndicatorColKeys: this.headerIndicatorColKeys,
+                            headerRowHeight: this.headerRowHeight,
                         },
                     };
                     return <HeaderTr {...trProps} />;

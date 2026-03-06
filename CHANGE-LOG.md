@@ -7,6 +7,27 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
+V2.27.6
+
+### Feature
+
+-   新增某个单元格禁止点击 Columns Object disableCell
+-   新增支持单元格自定义插槽
+    <template #name="{ row, column, rowIndex }">
+    <span style="color: red; font-weight: bold;">{{ row.name }}</span>
+    </template>
+
+---
+
+V2.27.5
+
+### Feature
+
+-   新增支持设置表头行高 headerRowHeight
+-   新增支持设置内容行高 bodyRowHeight
+
+---
+
 V2.27.1
 
 ### Bug Fixes

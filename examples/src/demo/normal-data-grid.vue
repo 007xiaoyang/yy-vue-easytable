@@ -63,16 +63,10 @@
             <ve-table
                 id="demo-loading-container"
                 ref="tableRef"
-                fixed-header
-                border-y
-                :max-height="500"
-                :scroll-width="0"
-                :sort-option="sortOption"
-                :virtual-scroll-option="virtualScrollOption"
+                :scroll-width="1000"
                 :columns="columns"
                 :table-data="tableData"
                 row-key-field-name="rowKey"
-                :cell-style-option="cellStyleOption"
                 :expand-option="expandOption"
                 :radio-option="radioOption"
                 :checkbox-option="checkboxOption"
@@ -80,13 +74,23 @@
                 :cell-selection-option="cellSelectionOption"
                 :column-width-resize-option="columnWidthResizeOption"
                 :event-custom-option="eventCustomOption"
-                :cell-span-option="{bodyCellSpan: bodyCellSpan}"
+                :contextmenu-body-option="contextmenuBodyOption"
+                :cell-span-option="{ bodyCellSpan: bodyCellSpan }"
+                :body-row-height="80"
+                :cell-autofill-option="cellAutofillOption"
             >
                 <!-- body 插槽示例 -->
                 <template #body>
-                    <div style="position: absolute; top: 0;z-index: 15;">这是自定义 body 插槽内容</div>
+                    <div style="position: absolute; top: 0; z-index: 15">
+                        这是自定义 body 插槽内容
+                    </div>
                 </template>
-        </ve-table>
+                <template #name="{ row }">
+                    <span title="的开放式的放款快捷">
+                        我是自定义插槽- {{ row.name }}
+                    </span>
+                </template>
+            </ve-table>
         </div>
     </div>
 </template>
@@ -109,7 +113,7 @@ export default {
             },
             cellSelectionOption: {
                 // disble cell selection
-                enable: true,
+                enable: false,
             },
             // edit option 可控单元格编辑
             editOption: {
@@ -185,20 +189,36 @@ export default {
                 },
             },
             eventCustomOption: {
-                    bodyCellEvents: ({ row, column, rowIndex }) => {
-                        return {
-                            click: (event) => {
-                                console.log("click::", row, column, rowIndex, event);
-                            },
-                            mousedown: (event) => {
-                                console.log("mousedown::", row, column, rowIndex, event);
-                            },
-                            mouseup: (event) => {
-                                console.log("mouseup::", row, column, rowIndex, event);
-                            },
-                        };
+                bodyCellEvents: ({ row, column, rowIndex }) => {
+                    return {
+                        click: (event) => {},
+                        mousedown: (event) => {},
+                        mouseup: (event) => {},
+                    };
+                },
+            },
+            contextmenuBodyOption: {
+                afterMenuClick: ({
+                    type,
+                    selectionRangeKeys,
+                    selectionRangeIndexes,
+                }) => {
+                    console.log("---contextmenu body afterMenuClick--");
+                    console.log("type::", type);
+                    console.log("selectionRangeKeys::", selectionRangeKeys);
+                    console.log(
+                        "selectionRangeIndexes::",
+                        selectionRangeIndexes,
+                    );
+                },
+                contextmenus: [
+                    {
+                        type: "custom-empty-row",
+                        label: "empty row(custom)",
                     },
-                }
+                ],
+            },
+            cellAutofillOption: { directionY: false, directionX: false },
         };
     },
     computed: {
@@ -291,6 +311,9 @@ export default {
                             title: "Name",
                             width: 200,
                             align: "left",
+                            ellipsis: {
+                                showTitle: true,
+                            },
                         },
                         {
                             field: "sex",
@@ -379,6 +402,7 @@ export default {
                                     width: 300,
                                     align: "left",
                                     edit: true,
+                                    disableCell: true,
                                     renderBodyCell: (
                                         { row, column, rowIndex },
                                         h,
@@ -425,6 +449,7 @@ export default {
                     title: "Address",
                     width: 350,
                     align: "left",
+                    operationColumn: true,
                 },
                 {
                     field: "status",
@@ -519,6 +544,8 @@ export default {
                 .filter(
                     (x) => values.length === 0 || values.includes(x.status),
                 );
+            console.log(111, this.tableData);
+            console.log(this.columns);
         },
 
         // sort change
@@ -604,22 +631,22 @@ export default {
             this.resetTableData();
         },
         bodyCellSpan({ row, column, rowIndex }) {
-                if (rowIndex === 1) {
-                    if (column.field === "name") {
-                        return {
-                            rowspan: 1,
-                            colspan: 2,
-                        };
-                    }
-                    // does not need to be rendered
-                    else if (column.field === "sex") {
-                        return {
-                            rowspan: 0,
-                            colspan: 0,
-                        };
-                    }
+            if (rowIndex === 1) {
+                if (column.field === "name") {
+                    return {
+                        rowspan: 1,
+                        colspan: 2,
+                    };
                 }
-            },
+                // does not need to be rendered
+                else if (column.field === "sex") {
+                    return {
+                        rowspan: 0,
+                        colspan: 0,
+                    };
+                }
+            }
+        },
     },
     created() {
         this.initSourceData();

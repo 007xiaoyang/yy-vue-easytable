@@ -18,10 +18,10 @@ let externals = {
 };
 
 externals["vue-easytable/packages/src/locale/lang/en-US"] =
-    "vue-easytable/libs/locale/lang/en-US";
+    "yy-vue-easytable/libs/locale/lang/en-US";
 
 Object.keys(Components).forEach(function (key) {
-    externals[`vue-easytable/packages/${key}`] = `vue-easytable/libs/${key}`;
+    externals[`vue-easytable/packages/${key}`] = `yy-vue-easytable/libs/${key}`;
 });
 
 let alias = {

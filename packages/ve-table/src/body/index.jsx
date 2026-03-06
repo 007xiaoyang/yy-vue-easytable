@@ -110,6 +110,13 @@ export default {
                 return null;
             },
         },
+        // scoped slots
+        scopedSlots: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
         // cell selection option
         cellSelectionOption: {
             type: Object,
@@ -143,6 +150,10 @@ export default {
             default: function () {
                 return null;
             },
+        },
+        bodyRowHeight: {
+            type: [Number, String],
+            default: "",
         },
     },
     data() {
@@ -904,6 +915,8 @@ export default {
                             columnCollection: this.columnCollection,
                             cellSelectionRangeData: this.cellSelectionRangeData,
                             bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
+                            bodyRowHeight: this.bodyRowHeight,
+                            scopedSlots: this.scopedSlots,
                         },
                     };
 

@@ -3,7 +3,7 @@ import { clsName } from "../util";
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from "../util/constant";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import emitter from "../../../src/mixins/emitter";
-import { isEmptyValue } from "../../../src/utils";
+import { isEmptyValue, getValByUnit } from "../../../src/utils";
 export default {
     name: COMPS_NAME.VE_TABLE_BODY_TR,
     mixins: [emitter],
@@ -148,6 +148,18 @@ export default {
                 return null;
             },
         },
+        // row height
+        bodyRowHeight: {
+            type: [Number, String],
+            default: "",
+        },
+        // scoped slots
+        scopedSlots: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     computed: {
         // current row key
@@ -226,6 +238,13 @@ export default {
         rowMouseup(e, fn) {
             fn && fn(e);
         },
+        getTrStyle(height) {
+            let result = {};
+            if (height) {
+                result["height"] = getValByUnit(height);
+            }
+            return result;
+        },
     },
 
     render() {
@@ -244,6 +263,8 @@ export default {
             radioOption,
             cellStyleOption,
             eventCustomOption,
+            bodyRowHeight,
+            getTrStyle,
         } = this;
 
         // get td content
@@ -273,6 +294,7 @@ export default {
                         cellSelectionRangeData: this.cellSelectionRangeData,
                         bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
                         editOption: this.editOption,
+                        scopedSlots: this.scopedSlots,
                     },
                     on: {
                         [EMIT_EVENTS.EXPAND_ROW_CHANGE]: () =>
@@ -339,6 +361,7 @@ export default {
         if (this.isVirtualScroll) {
             const props = {
                 class: this.trClass,
+                style: getTrStyle(bodyRowHeight),
                 props: {
                     tagName: "tr",
                     id: this.currentRowKey,
@@ -369,6 +392,7 @@ export default {
         } else {
             const props = {
                 class: this.trClass,
+                style: getTrStyle(bodyRowHeight),
                 attrs: {
                     [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
                 },

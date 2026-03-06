@@ -3,6 +3,7 @@ import { clsName, getDomResizeObserverCompKey } from "../util";
 import { COMPS_NAME, EMIT_EVENTS } from "../util/constant";
 import VueDomResizeObserver from "../../../src/comps/resize-observer";
 import emitter from "../../../src/mixins/emitter";
+import { getValByUnit } from "../../../src/utils";
 export default {
     name: COMPS_NAME.VE_TABLE_THADER_TR,
     mixins: [emitter],
@@ -92,6 +93,10 @@ export default {
                 return null;
             },
         },
+        headerRowHeight: {
+            type: [Number, String],
+            default: "",
+        },
     },
     methods: {
         // tr height change
@@ -141,6 +146,13 @@ export default {
         rowMouseup(e, fn) {
             fn && fn(e);
         },
+        getTrStyle(height) {
+            let result = {};
+            if (height) {
+                result["height"] = getValByUnit(height);
+            }
+            return result;
+        },
     },
     render() {
         const {
@@ -156,6 +168,8 @@ export default {
             cellStyleOption,
             eventCustomOption,
             cellSelectionData,
+            headerRowHeight,
+            getTrStyle,
         } = this;
 
         // custom on cell event
@@ -213,6 +227,7 @@ export default {
                 this.columnsOptionResetTime,
             ),
             class: clsName("header-tr"),
+            style: getTrStyle(headerRowHeight),
             props: {
                 tagName: "tr",
             },

@@ -1,6 +1,6 @@
 {
     "name": "yy-vue-easytable",
-    "version": "2.27.2",
+    "version": "2.27.6",
     "main": "libs/main.js",
     "description": "Vue table component",
     "keywords": [
@@ -135,8 +135,15 @@
     "homepage": "https://github.com/007xiaoyang/yy-vue-easytable/blob/master/README.md",
     "docVersions": [
         {
-            "value": "/yy-vue-easytable",
-            "label": "2.27.2"
+            "value": "2.27.6",
+            "label": "/yy-vue-easytable"
+        },{
+            "value": "2.27.5",
+            "label": "/yy-vue-easytable"
+        },
+        {
+            "value": "2.27.4",
+            "label": "/yy-vue-easytable"
         }
     ]
 }

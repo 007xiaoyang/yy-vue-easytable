@@ -146,6 +146,13 @@ export default {
                 return null;
             },
         },
+        // scoped slots
+        scopedSlots: {
+            type: Object,
+            default: function () {
+                return null;
+            },
+        },
     },
     data() {
         return {
@@ -655,16 +662,35 @@ export default {
             on: events,
         };
 
+        // check if has scoped slot for this column
+        const columnSlot = this.scopedSlots && this.scopedSlots[column.key];
+
         return (
             <td {...tdProps}>
-                {/* expadn tr icon */}
-                {isExpandRow && <ExpandTrIcon {...expandIconProps} />}
-                {/* checkbox content */}
-                {this.getCheckboxContent()}
-                {/* radio content */}
-                {this.getRadioContent()}
-                {/* other cell content */}
-                {this.getRenderContent(h)}
+                {columnSlot
+                    ? // use scoped slot for this column if provided
+                      columnSlot({
+                          row: rowData,
+                          column,
+                          rowIndex,
+                          isExpandRow,
+                          expandIcon: isExpandRow ? (
+                              <ExpandTrIcon {...expandIconProps} />
+                          ) : null,
+                          checkbox: this.getCheckboxContent(),
+                          radio: this.getRadioContent(),
+                          rawValue: this.rawCellValue,
+                      })
+                    : [
+                          // expadn tr icon
+                          isExpandRow && <ExpandTrIcon {...expandIconProps} />,
+                          // checkbox content
+                          this.getCheckboxContent(),
+                          // radio content
+                          this.getRadioContent(),
+                          // other cell content
+                          this.getRenderContent(h),
+                      ]}
             </td>
         );
     },

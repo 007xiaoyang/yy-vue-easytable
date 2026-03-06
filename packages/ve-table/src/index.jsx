@@ -270,6 +270,16 @@ export default {
                 return null;
             },
         },
+        // 表头行高
+        headerRowHeight: {
+            type: [Number, String],
+            default: "",
+        },
+        // 内容行高
+        bodyRowHeight: {
+            type: [Number, String],
+            default: "",
+        },
     },
     data() {
         return {
@@ -2204,6 +2214,8 @@ export default {
         cellSelectionByClick({ rowData, column }) {
             const { rowKeyFieldName } = this;
 
+            if (column.disableClick) return; // 单个列禁止点击
+
             const rowKey = getRowKey(rowData, rowKeyFieldName);
 
             // set cell selection and column to visible
@@ -2287,6 +2299,7 @@ export default {
             if (!this.enableCellSelection) {
                 return false;
             }
+            if (column.disableCell) return false;
 
             const { shiftKey } = event;
 
@@ -2306,6 +2319,7 @@ export default {
 
             const mouseEventClickType = getMouseEventClickType(event);
 
+            if (column.disableCell) return;
             if (isOperationColumn(colKey, colgroups)) {
                 // clear header indicator colKeys
                 this.clearHeaderIndicatorColKeys();
@@ -2401,6 +2415,8 @@ export default {
          * @param {object} column - column data
          */
         bodyCellMouseover({ event, rowData, column }) {
+            if (column.disableCell) return false;
+
             const {
                 rowKeyFieldName,
                 isBodyCellMousedown,
@@ -2422,7 +2438,6 @@ export default {
                     colKey,
                 });
             }
-
             if (isBodyOperationColumnMousedown) {
                 this.bodyIndicatorRowKeysChange({
                     startRowKey: this.bodyIndicatorRowKeys.startRowKey,
@@ -2836,6 +2851,7 @@ export default {
             } = this;
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
+            console.log("contextmenuHeaderOption", contextmenuHeaderOption);
             const { afterMenuClick } = contextmenuHeaderOption;
 
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -2936,7 +2952,7 @@ export default {
 
             const { rowKey, colKey } = cellSelectionData.currentCell;
             const { afterMenuClick } = contextmenuBodyOption;
-
+            console.log(22, afterMenuClick);
             if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
                 let selectionRangeKeys = getSelectionRangeKeys({
                     cellSelectionRangeData,
@@ -3864,6 +3880,7 @@ export default {
                 cellSelectionData,
                 cellSelectionRangeData,
                 headerIndicatorColKeys,
+                headerRowHeight: this.headerRowHeight,
             },
             nativeOn: {
                 click: () => {
@@ -3902,15 +3919,14 @@ export default {
                 highlightRowKey: this.highlightRowKey,
                 showVirtualScrollingPlaceholder,
                 bodyIndicatorRowKeys,
+                bodyRowHeight: this.bodyRowHeight,
+                scopedSlots: this.$scopedSlots,
             },
             on: {
                 [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
                     debouncedBodyCellWidthChange,
                 [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
                     this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
-            },
-            scopedSlots: {
-                body: this.$slots.body,
             },
         };
 
@@ -4164,9 +4180,7 @@ export default {
                                 {/* table header */}
                                 {showHeader && <Header {...headerProps} />}
                                 {/* table body */}
-                                <Body {...bodyProps}>
-                                    {this.$slots.body}
-                                </Body>
+                                <Body {...bodyProps}>{this.$slots.body}</Body>
                                 {/* table footer */}
                                 <Footer {...footerProps}>
                                     {this.$slots.footer}
